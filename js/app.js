@@ -10,7 +10,8 @@ class Producto {
         this.id = id;
         }
     }
-const arrProductos = [];    
+const arrProductos = [];
+const carrito = [];    
 
     arrProductos.push (new Producto ('MSI B450-A PRO MAX', 'Informatica', 'MSI motherboards have tons of convenient and smart design features, such as convenient pin-header keep out zone, friendly SATA & USB location and so on, so DIY users can pick and choose any gaming rig they want.Excellent cooling. Enhanced performance', 21482, true, 10, 'INF1025M', 1));
     arrProductos.push (new Producto ('HP ProBook 455R G6 9VX50ES R3-3200U 8GB - 256GB SSD 15', 'Informatica', '39.6 cm (15.6") Notebook, Windows 10 Pro. Display: 1920 x 1080, IPS. AMD Ryzen 3 3200U 2x 2.60 GHz. AMD Radeon Vega 3 Mobile Shared Memory. 32 GB RAM, 256 GB SSD. USB 3.1 Gen1 Typ C, 2x USB 3.1 Gen1, Wi-Fi 5 (802.11ac)', 284050, true, 4, 'INF1890N', 2));
@@ -25,9 +26,15 @@ const verProductos = () => {
 }
 
 const comprar = () => {
-    const compra = prompt(`Ingresa ID del producto a comprar\n\n ${verProductos()}`);
+    const compra = Number(prompt(`Ingresa ID del producto a comprar\n\n ${verProductos()}`));
     const productoEncontrado = arrProductos.find(producto => producto.id === compra);
-    console.log(productoEncontrado)
+    if (productoEncontrado){
+        carrito.push(productoEncontrado)
+        alert(`Agregaste ${productoEncontrado.nombre} a tu carrito`);
+        console.log(carrito)        
+    } else {
+        alert('Producto inexistente')
+    }
 }
 
 let opciones;
@@ -36,7 +43,9 @@ do{
     opciones = Number(prompt(`Ingrese su eleccion:
     1- Ver Productos
     2- Comprar
-    3- Salir`));
+    3- Mostrar carrito
+    4- Salir`));
+
     switch (opciones) {
         case 1:
             const valorRec = verProductos();
@@ -46,6 +55,9 @@ do{
             comprar();
             break;
         case 3:
+            mostrarCarrito();
+            break;        
+        case 4:
             alert('Gracias por pasar por nuestra tienda')
             break;
         default:
@@ -53,4 +65,4 @@ do{
             break;
     }
 
-} while(opciones !== 3);
+} while(opciones !== 4);
